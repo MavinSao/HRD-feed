@@ -1,7 +1,21 @@
 import React from "react";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import {useDispatch,useSelector} from 'react-redux'
+import { signOut } from "../redux/actions/auth";
 function NavMenu() {
+
+  const {isLoggedIn,user} = useSelector((state)=>state.authReducer)
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  const onSignOut = ()=>{
+    dispatch(signOut())
+    .then(()=>{
+      history.push("/login")
+    })
+  }
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -20,19 +34,41 @@ function NavMenu() {
           </Nav>
           <Nav>
             <NavDropdown title="Account" id="basic-nav-dropdown">
-              <NavDropdown.Item as={Link} to="/profile">
-                Profile
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/login">
-                Sign In
-              </NavDropdown.Item>
+              {
+                isLoggedIn ? 
+                <NavDropdown.Item as={Link} to="/profile">
+                    {user.username}
+                </NavDropdown.Item>
+                :
+                ''
+              }
               <NavDropdown.Item as={Link} to="/setting">
                 Setting
               </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={Link} to="/signup">
-                Sign Up
-              </NavDropdown.Item>
+              {
+                !isLoggedIn ? 
+                (<>
+                    <NavDropdown.Item as={Link} to="/login">
+                      Sign In
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/signup">
+                    Sign Up
+                    </NavDropdown.Item>
+                  </>
+                )
+                :
+                (
+                  <>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={()=>onSignOut()}>
+                        Sign Out
+                    </NavDropdown.Item>
+                  </>
+                )
+              }
+              
+              
+             
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

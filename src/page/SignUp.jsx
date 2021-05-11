@@ -1,30 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
-import register from "../service/auth.service";
-import axios from "axios";
+import {useDispatch,useSelector} from 'react-redux'
+import { useHistory } from "react-router";
+import { signUp } from "../redux/actions/auth";
 
 function SignUp() {
+
   const [username, setUsername] = useState("");
   const [fullname, setFullName] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  const {isLoggedIn} = useSelector((state)=>state.authReducer)
+
   const onSignUp = (e) => {
     e.preventDefault();
+    dispatch(signUp(fullname,username,password)).then(()=>{
+        alert("Sign Up Successfully")
+        history.push("/login")
+    })
+    .catch(()=>{
+        alert("Error")
+    })
+  }
 
-    //Test
-    axios
-      .post("http://110.74.194.124:9999/api/auth/register", {
-        username,
-        fullname,
-        password,
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+
 
   return (
     <Container>
@@ -61,7 +63,7 @@ function SignUp() {
           <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
         <Button variant="primary" type="submit" onClick={(e) => onSignUp(e)}>
-          Login
+          SignUp
         </Button>
       </Form>
     </Container>

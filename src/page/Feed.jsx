@@ -1,14 +1,12 @@
 import { Col, Container, Row } from "react-bootstrap";
 import Post from "../components/Post";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "../redux/actions/post";
 
 function Feed() {
-  const { data } = useSelector((state) => {
-    return state.postReducer;
-  });
+  const { data } = useSelector((state) => state.postReducer);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPosts());
@@ -18,18 +16,10 @@ function Feed() {
     <Container>
       <h1 className="my-3">Welcome to HRD Feeds</h1>
       <Row>
-        <Col md={3}>
-          <Post />
-        </Col>
-        <Col md={3}>
-          <Post />
-        </Col>
-        <Col md={3}>
-          <Post />
-        </Col>
-        <Col md={3}>
-          <Post />
-        </Col>
+        {data.map((post,idx)=>
+        <Col md={3} key={idx}>
+          <Post post={post}/>
+        </Col>)}
       </Row>
     </Container>
   );

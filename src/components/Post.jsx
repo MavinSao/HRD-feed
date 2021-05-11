@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
-function Post() {
+function Post({post}) {
   return (
     <Card>
       <Card.Header className="d-flex align-items-center">
@@ -18,10 +18,9 @@ function Post() {
         <Button size="sm" variant="dark">
           <img src="icons/share.png" alt="share" />
         </Button>
-        <div className="my-2 font-weight-bold">1,675 likes</div>
+        <div className="my-2 font-weight-bold">{post.numberOfLikes} likes</div>
         <Card.Text className="text-justify">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+          {post.caption}
         </Card.Text>
       </Card.Body>
     </Card>
