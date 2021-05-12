@@ -1,5 +1,5 @@
 import PostService from '../../service/post.service'
-import { CREATE_POST, FETCH_POST } from './types'
+import { CREATE_POST, FETCH_POST, FIND_POST_BY_ID } from './types'
 export const fetchPosts = () => {
     return (dp) => {
         PostService.fetchPosts().then((response) => {
@@ -22,5 +22,15 @@ export const postData = (caption, image) => (dp) => {
         .catch((err) => {
             console.log(err);
             return Promise.reject()
+        })
+}
+export const findPostID = (id) => (dp) => {
+    return PostService.findPostByID(id)
+        .then((response) => {
+            console.log(response);
+            dp({
+                type: FIND_POST_BY_ID,
+                payload: response.data.payload
+            })
         })
 }

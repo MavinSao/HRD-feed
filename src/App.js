@@ -10,7 +10,10 @@ import Setting from './page/Setting';
 import { Container } from 'react-bootstrap';
 import CreatePost from './page/CreatePost';
 import ViewPost from './page/ViewPost';
+
+
 function App() {
+
   return (
     <Router>
       <NavMenu />

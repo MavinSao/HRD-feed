@@ -14,11 +14,14 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import Comment from "../components/Comment";
-import { findCommentByPostId } from "../redux/actions/comment";
+import { findCommentByPostId, postComment } from "../redux/actions/comment";
+import { findPostID } from "../redux/actions/post";
 
 function ViewPost() {
-  const [post, setPost] = useState();
-  const { data } = useSelector((state) => state.postReducer);
+
+  const [comment, setComment] = useState('')
+
+  const { foundData } = useSelector((state) => state.postReducer);
   const { comments } = useSelector((state) => state.commentReducer);
 
   const { id } = useParams();
@@ -26,18 +29,18 @@ function ViewPost() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let post = data.find((post) => post.id == id);
-    setPost(post);
-  }, []);
+    dispatch(findCommentByPostId(id));
+  }, [foundData]);
 
   useEffect(() => {
-    dispatch(findCommentByPostId(id));
-    console.log("comments", comments);
+    dispatch(findPostID(id));
   }, []);
 
-  console.log(post);
+  const onComment = ()=>{
+    dispatch(postComment(comment,id))
+  }
 
-  return post ? (
+  return foundData ? (
     <Container>
       <h1 className="my-3">Detail Post</h1>
       <Row>
@@ -46,9 +49,9 @@ function ViewPost() {
             <Card.Header className="d-flex align-items-center justify-content-between">
               <div>
                 <img src="/icons/profile.png" alt="profile" />
-                <span className="mx-2">{post.username}</span>
+                <span className="mx-2">{foundData.username}</span>
               </div>
-              {post.owner ? (
+              {foundData.owner ? (
                 <DropdownButton
                   size="sm"
                   as={ButtonGroup}
@@ -66,8 +69,8 @@ function ViewPost() {
             <Card.Img
               variant="top"
               src={
-                post.image.includes("http")
-                  ? post.image
+                foundData.image.includes("http")
+                  ? foundData.image
                   : "/image/placeholder-image.png"
               }
             />
@@ -82,9 +85,11 @@ function ViewPost() {
                 <img src="/icons/share.png" alt="share" />
               </Button>
               <div className="my-2 font-weight-bold">
-                {post.numberOfLikes} likes
+                {foundData.numberOfLikes} likes
               </div>
-              <Card.Text className="text-justify">{post.caption}</Card.Text>
+              <Card.Text className="text-justify">
+                {foundData.caption}
+              </Card.Text>
             </Card.Body>
           </Card>
         </Col>
@@ -104,8 +109,12 @@ function ViewPost() {
             )}
             <ListGroup.Item as="li">
               <Form className="d-flex">
-                <Form.Control type="text" placeholder="Comment" />
-                <Button size="sm" className="mx-2 btn-dark">
+                <Form.Control type="text" value={comment} onChange={(e)=>setComment(e.target.value)} placeholder="Comment" />
+                <Button 
+                    size="sm" 
+                    className="mx-2 btn-dark"
+                    onClick={()=>onComment()}
+                >
                   Send
                 </Button>
               </Form>

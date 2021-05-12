@@ -1,5 +1,5 @@
 import commentService from "../../service/comment.service"
-import { FIND_COMMENT_BY_POST_ID, FIND_COMMENT_FAIL } from "./types"
+import { FIND_COMMENT_BY_POST_ID, FIND_COMMENT_FAIL, POST_COMMENT } from "./types"
 
 
 export const findCommentByPostId = (id) => (dp) => {
@@ -15,11 +15,23 @@ export const findCommentByPostId = (id) => (dp) => {
                     type: FIND_COMMENT_FAIL,
                 })
             }
-
-
             return Promise.resolve()
         })
         .catch((e) => {
             return Promise.reject()
+        })
+}
+
+export const postComment = (content, id) => (dp) => {
+    return commentService.postComment(content, id)
+        .then((response) => {
+            console.log("comment", response);
+            dp({
+                type: POST_COMMENT,
+                payload: response.data.payload
+            })
+            return Promise.resolve()
+        }).catch(err => {
+            console.log(err);
         })
 }
