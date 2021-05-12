@@ -20,7 +20,7 @@ function Login() {
         history.push("/")
     })
     .catch(()=>{
-
+      alert("Error");
     })
 
   }

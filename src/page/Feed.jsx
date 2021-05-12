@@ -16,10 +16,11 @@ function Feed() {
     <Container>
       <h1 className="my-3">Welcome to HRD Feeds</h1>
       <Row>
-        {data.map((post,idx)=>
-        <Col md={3} key={idx}>
-          <Post post={post}/>
-        </Col>)}
+        {data.map((post, idx) => (
+          <Col md={3} key={idx} className="my-2">
+            <Post post={post} />
+          </Col>
+        ))}
       </Row>
     </Container>
   );

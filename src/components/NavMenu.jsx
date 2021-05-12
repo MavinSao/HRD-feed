@@ -31,44 +31,39 @@ function NavMenu() {
             <Nav.Link as={Link} to="/about">
               About
             </Nav.Link>
+            <Nav.Link as={Link} to="/post">
+              Post
+            </Nav.Link>
           </Nav>
           <Nav>
             <NavDropdown title="Account" id="basic-nav-dropdown">
-              {
-                isLoggedIn ? 
+              {isLoggedIn ? (
                 <NavDropdown.Item as={Link} to="/profile">
-                    {user.username}
+                  {user.username}
                 </NavDropdown.Item>
-                :
-                ''
-              }
+              ) : (
+                ""
+              )}
               <NavDropdown.Item as={Link} to="/setting">
                 Setting
               </NavDropdown.Item>
-              {
-                !isLoggedIn ? 
-                (<>
-                    <NavDropdown.Item as={Link} to="/login">
-                      Sign In
-                    </NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to="/signup">
+              {!isLoggedIn ? (
+                <>
+                  <NavDropdown.Item as={Link} to="/login">
+                    Sign In
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/signup">
                     Sign Up
-                    </NavDropdown.Item>
-                  </>
-                )
-                :
-                (
-                  <>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={()=>onSignOut()}>
-                        Sign Out
-                    </NavDropdown.Item>
-                  </>
-                )
-              }
-              
-              
-             
+                  </NavDropdown.Item>
+                </>
+              ) : (
+                <>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={() => onSignOut()}>
+                    Sign Out
+                  </NavDropdown.Item>
+                </>
+              )}
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

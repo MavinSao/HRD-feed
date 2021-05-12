@@ -1,10 +1,7 @@
-import React from 'react'
-
 function authHeader() {
     const user = JSON.parse(localStorage.getItem('user'))
-
     if (user && user.token) {
-        return { Authorization: 'Bearer ' + user.token };
+        return { ContentType: "application/json", Authorization: 'Bearer ' + user.token };
     } else {
         return {}
     }

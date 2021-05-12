@@ -7,6 +7,9 @@ import Profile from './page/Profile';
 import Login from './page/Login';
 import SignUp from './page/SignUp';
 import Setting from './page/Setting';
+import { Container } from 'react-bootstrap';
+import CreatePost from './page/CreatePost';
+import ViewPost from './page/ViewPost';
 function App() {
   return (
     <Router>
@@ -18,17 +21,26 @@ function App() {
         <Route path="/about">
           <About />
         </Route>
-        <Route exact path="/profile">
+        <Route path="/profile">
           <Profile />
         </Route>
-        <Route exact path="/login">
+        <Route path="/login">
           <Login />
         </Route>
-        <Route exact path="/signup">
+        <Route path="/signup">
           <SignUp />
         </Route>
-        <Route exact path="/setting">
+        <Route path="/setting">
           <Setting />
+        </Route>
+        <Route path="/post">
+          <CreatePost />
+        </Route>
+        <Route path="/detail/post/:id">
+          <ViewPost />
+        </Route>
+        <Route path="*">
+          <Container><h1 className="my-3">404 Not Found</h1></Container>
         </Route>
       </Switch>
     </Router>
