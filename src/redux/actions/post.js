@@ -27,7 +27,6 @@ export const postData = (caption, image) => (dp) => {
 export const findPostID = (id) => (dp) => {
     return PostService.findPostByID(id)
         .then((response) => {
-            console.log(response);
             dp({
                 type: FIND_POST_BY_ID,
                 payload: response.data.payload

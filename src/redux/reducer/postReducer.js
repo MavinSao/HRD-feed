@@ -12,10 +12,8 @@ const postReducer = (state = initialState, { type, payload }) => {
         case CREATE_POST:
             return { ...state }
         case FIND_POST_BY_ID: {
-            console.log("payload", payload);
             return { ...state, foundData: payload }
         }
-
         default:
             return state
     }

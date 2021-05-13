@@ -7,8 +7,7 @@ const getCommentByPostID = (id) => {
 }
 
 const postComment = (content, id) => {
-    console.log("Content", content, id);
-    return axios.post(API_URL + `comments`, { content, id }, { headers: authHeader() })
+    return axios.post(API_URL + `comments`, { content, postId: id }, { headers: authHeader() })
 }
 
 export default {

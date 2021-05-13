@@ -28,15 +28,14 @@ function CreatePost() {
             placeholder="Enter Caption"
           />
         </Form.Group>
-        <Form.Group controlId="password" className="my-2">
-          <Form.Label>ImagePath</Form.Label>
-          <Form.Control
-            value={imgPath}
-            onChange={(e) => setImgPath(e.target.value)}
-            type="text"
-            placeholder="Image Path"
-          />
-        </Form.Group>
+        <Form.File
+          id="custom-file"
+          label="Custom Image"
+          className="my-2"
+          onChange={(e) => setImgPath(e.target.files[0])}
+          custom
+        />
+
         <Button variant="primary" type="submit" onClick={(e) => onPost(e)}>
           Post
         </Button>

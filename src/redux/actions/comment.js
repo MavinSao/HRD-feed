@@ -25,7 +25,6 @@ export const findCommentByPostId = (id) => (dp) => {
 export const postComment = (content, id) => (dp) => {
     return commentService.postComment(content, id)
         .then((response) => {
-            console.log("comment", response);
             dp({
                 type: POST_COMMENT,
                 payload: response.data.payload

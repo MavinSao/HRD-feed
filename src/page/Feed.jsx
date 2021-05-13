@@ -11,10 +11,9 @@ function Feed() {
   useEffect(() => {
     dispatch(fetchPosts());
   }, []);
-  console.log(data);
   return (
     <Container>
-      <h1 className="my-3">Welcome to HRD Feeds</h1>
+      <h1 className="my-3">Welcome to HRD News Feed</h1>
       <Row>
         {data.map((post, idx) => (
           <Col md={3} key={idx} className="my-2">

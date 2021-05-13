@@ -10,8 +10,9 @@ const commentReducer = (state = initialState, { type, payload }) => {
             return { ...state, comments: [...payload] }
         case FIND_COMMENT_FAIL:
             return { ...state, comments: [] }
-        case POST_COMMENT:
-            return { ...state, comments: [...state.comments, ...payload] }
+        case POST_COMMENT: 
+            return { ...state, comments: [...state.comments, payload] }
+
         default:
             return state
     }
